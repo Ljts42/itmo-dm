@@ -1,0 +1,409 @@
+start: s
+accept: ac
+reject: rj
+blank: _
+
+s 1 -> s1 1 >
+
+s1 0 -> s10 0 >
+s1 1 -> s11 1 >
+s1 _ -> ac _ <
+
+s10 0 -> s100 0 >
+s10 1 -> s101 1 >
+s10 _ -> begin _ <
+
+s11 0 -> s110 0 >
+s11 1 -> s111 1 >
+s11 _ -> begin 0 <
+
+s100 0 -> s1000 0 >
+s100 1 -> s1001 1 >
+s100 _ -> p11_0 $ >
+
+s101 0 -> s1010 0 >
+s101 1 -> s1011 1 >
+s101 _ -> p100_0 $ >
+
+s110 0 -> s1100 0 >
+s110 1 -> s1101 1 >
+s110 _ -> p101_0 $ >
+
+s111 0 -> s1110 0 >
+s111 1 -> s1111 1 >
+s111 _ -> p110_0 $ >
+
+s1000 0 -> s10000 0 >
+s1000 1 -> s10001 1 >
+s1000 _ -> p111_0 $ >
+
+s1001 0 -> s10010 0 >
+s1001 1 -> s10011 1 >
+s1001 _ -> p1000_0 $ >
+
+s1010 0 -> s10100 0 >
+s1010 1 -> s10101 1 >
+s1010 _ -> p1001_0 $ >
+
+s1011 0 -> s10110 0 >
+s1011 1 -> s10111 1 >
+s1011 _ -> p1010_0 $ >
+
+s1100 0 -> s11000 0 >
+s1100 1 -> s11001 1 >
+s1100 _ -> p1011_0 $ >
+
+s1101 0 -> s11010 0 >
+s1101 1 -> s11011 1 >
+s1101 _ -> p1100_0 $ >
+
+s1110 0 -> s11100 0 >
+s1110 1 -> s11101 1 >
+s1110 _ -> p1101_0 $ >
+
+s1111 0 -> s11110 0 >
+s1111 _ -> p1110_0 $ >
+
+s10000 _ -> p1111_0 $ >
+s10001 _ -> p10000_0 $ >
+s10010 _ -> p10001_0 $ >
+s10011 _ -> p10010_0 $ >
+s10100 _ -> p10011_0 $ >
+s10101 _ -> p10100_0 $ >
+s10110 _ -> p10101_0 $ >
+s10111 _ -> p10110_0 $ >
+s11000 _ -> p10111_0 $ >
+s11001 _ -> p11000_0 $ >
+s11010 _ -> p11001_0 $ >
+s11011 _ -> p11010_0 $ >
+s11100 _ -> p11011_0 $ >
+s11101 _ -> p11100_0 $ >
+s11110 _ -> p11101_0 $ >
+
+p11_0 _ -> p11_1 1 >
+p11_1 _ -> p11_2 1 >
+p11_2 _ -> end 0 >
+
+p100_0 _ -> p100_1 1 >
+p100_1 _ -> p100_2 0 >
+p100_2 _ -> s100 0 >
+
+p101_0 _ -> p101_1 1 >
+p101_1 _ -> p101_2 0 >
+p101_2 _ -> s101 1 >
+
+p110_0 _ -> p110_1 1 >
+p110_1 _ -> p110_2 1 >
+p110_2 _ -> s110 0 >
+
+p111_0 _ -> p111_1 1 >
+p111_1 _ -> p111_2 1 >
+p111_2 _ -> s111 1 >
+
+p1000_0 _ -> p1000_1 1 >
+p1000_1 _ -> p1000_2 0 >
+p1000_2 _ -> p1000_3 0 >
+p1000_3 _ -> s1000 0 >
+
+p1001_0 _ -> p1001_1 1 >
+p1001_1 _ -> p1001_2 0 >
+p1001_2 _ -> p1001_3 0 >
+p1001_3 _ -> s1001 1 >
+
+p1010_0 _ -> p1010_1 1 >
+p1010_1 _ -> p1010_2 0 >
+p1010_2 _ -> p1010_3 1 >
+p1010_3 _ -> s1010 0 >
+
+p1011_0 _ -> p1011_1 1 >
+p1011_1 _ -> p1011_2 0 >
+p1011_2 _ -> p1011_3 1 >
+p1011_3 _ -> s1011 1 >
+
+p1100_0 _ -> p1100_1 1 >
+p1100_1 _ -> p1100_2 1 >
+p1100_2 _ -> p1100_3 0 >
+p1100_3 _ -> s1100 0 >
+
+p1101_0 _ -> p1101_1 1 >
+p1101_1 _ -> p1101_2 1 >
+p1101_2 _ -> p1101_3 0 >
+p1101_3 _ -> s1101 1 >
+
+p1110_0 _ -> p1110_1 1 >
+p1110_1 _ -> p1110_2 1 >
+p1110_2 _ -> p1110_3 1 >
+p1110_3 _ -> s1110 0 >
+
+p1111_0 _ -> p1111_1 1 >
+p1111_1 _ -> p1111_2 1 >
+p1111_2 _ -> p1111_3 1 >
+p1111_3 _ -> s1111 1 >
+
+p10000_0 _ -> p10000_1 1 >
+p10000_1 _ -> p10000_2 0 >
+p10000_2 _ -> p10000_3 0 >
+p10000_3 _ -> p10000_4 0 >
+p10000_4 _ -> s10000 0 >
+
+p10001_0 _ -> p10001_1 1 >
+p10001_1 _ -> p10001_2 0 >
+p10001_2 _ -> p10001_3 0 >
+p10001_3 _ -> p10001_4 0 >
+p10001_4 _ -> s10001 1 >
+
+p10010_0 _ -> p10010_1 1 >
+p10010_1 _ -> p10010_2 0 >
+p10010_2 _ -> p10010_3 0 >
+p10010_3 _ -> p10010_4 1 >
+p10010_4 _ -> s10010 0 >
+
+p10011_0 _ -> p10011_1 1 >
+p10011_1 _ -> p10011_2 0 >
+p10011_2 _ -> p10011_3 0 >
+p10011_3 _ -> p10011_4 1 >
+p10011_4 _ -> s10011 1 >
+
+p10100_0 _ -> p10100_1 1 >
+p10100_1 _ -> p10100_2 0 >
+p10100_2 _ -> p10100_3 1 >
+p10100_3 _ -> p10100_4 0 >
+p10100_4 _ -> s10100 0 >
+
+p10101_0 _ -> p10101_1 1 >
+p10101_1 _ -> p10101_2 0 >
+p10101_2 _ -> p10101_3 1 >
+p10101_3 _ -> p10101_4 0 >
+p10101_4 _ -> s10101 1 >
+
+p10110_0 _ -> p10110_1 1 >
+p10110_1 _ -> p10110_2 0 >
+p10110_2 _ -> p10110_3 1 >
+p10110_3 _ -> p10110_4 1 >
+p10110_4 _ -> s10110 0 >
+
+p10111_0 _ -> p10111_1 1 >
+p10111_1 _ -> p10111_2 0 >
+p10111_2 _ -> p10111_3 1 >
+p10111_3 _ -> p10111_4 1 >
+p10111_4 _ -> s10111 1 >
+
+p11000_0 _ -> p11000_1 1 >
+p11000_1 _ -> p11000_2 1 >
+p11000_2 _ -> p11000_3 0 >
+p11000_3 _ -> p11000_4 0 >
+p11000_4 _ -> s11000 0 >
+
+p11001_0 _ -> p11001_1 1 >
+p11001_1 _ -> p11001_2 1 >
+p11001_2 _ -> p11001_3 0 >
+p11001_3 _ -> p11001_4 0 >
+p11001_4 _ -> s11001 1 >
+
+p11010_0 _ -> p11010_1 1 >
+p11010_1 _ -> p11010_2 1 >
+p11010_2 _ -> p11010_3 0 >
+p11010_3 _ -> p11010_4 1 >
+p11010_4 _ -> s11010 0 >
+
+p11011_0 _ -> p11011_1 1 >
+p11011_1 _ -> p11011_2 1 >
+p11011_2 _ -> p11011_3 0 >
+p11011_3 _ -> p11011_4 1 >
+p11011_4 _ -> s11011 1 >
+
+p11100_0 _ -> p11100_1 1 >
+p11100_1 _ -> p11100_2 1 >
+p11100_2 _ -> p11100_3 1 >
+p11100_3 _ -> p11100_4 0 >
+p11100_4 _ -> s11100 0 >
+
+p11101_0 _ -> p11101_1 1 >
+p11101_1 _ -> p11101_2 1 >
+p11101_2 _ -> p11101_3 1 >
+p11101_3 _ -> p11101_4 0 >
+p11101_4 _ -> s11101 1 >
+
+end 0 -> end 0 >
+end 1 -> end 1 >
+end * -> end * >
+end _ -> mul-choose _ <
+
+mul-choose 0 -> nil-left _ <
+mul-choose 1 -> one-left 0 <
+
+nil-left 0 -> nil-left 0 <
+nil-left 1 -> nil-left 1 <
+nil-left * -> nil-shift* 0 >
+nil-left $ -> nil-shift* 0 >
+
+nil-shift-0 0 -> nil-shift-0 0 >
+nil-shift-0 1 -> nil-shift-1 0 >
+nil-shift-0 _ -> mul-choose 0 ^
+
+nil-shift-1 0 -> nil-shift-0 1 >
+nil-shift-1 1 -> nil-shift-1 1 >
+nil-shift-1 _ -> mul-choose 1 ^
+
+nil-shift* 0 -> nil-shift-0 * >
+nil-shift* 1 -> nil-shift-1 * >
+nil-shift* _ -> nil-clear _ <
+
+nil-clear 0 -> nil-clear _ <
+nil-clear 1 -> nil-clear _ <
+nil-clear + -> left _ <
+nil-clear _ -> ac 0 ^
+
+one-left 0 -> one-left 0 <
+one-left 1 -> one-left 1 <
+one-left * -> one-shift-* # >
+
+one-shift-* 0 -> one-shift-0 * >
+one-shift-* 1 -> one-shift-1 * >
+
+one-shift-0 0 -> one-shift-0 0 >
+one-shift-0 1 -> one-shift-1 0 >
+one-shift-0 _ -> one-back 0 <
+
+one-shift-1 0 -> one-shift-0 1 >
+one-shift-1 1 -> one-shift-1 1 >
+one-shift-1 _ -> one-back 1 <
+
+one-back 0 -> one-back 0 <
+one-back 1 -> one-back 1 <
+one-back # -> one-back # <
+one-back * -> one-back * <
+one-back + -> one-right + >
+one-back n -> one-right n >
+one-back p -> one-right p >
+one-back $ -> one-right $ >
+one-back _ -> one-right _ >
+
+one-right 0 -> one-copy-0 n >
+one-right 1 -> one-copy-1 p >
+one-right # -> end + >
+
+one-copy-0 0 -> one-copy-0 0 >
+one-copy-0 1 -> one-copy-0 1 >
+one-copy-0 # -> one-copy-0 # >
+one-copy-0 * -> one-shift-* 0 >
+
+one-copy-1 0 -> one-copy-1 0 >
+one-copy-1 1 -> one-copy-1 1 >
+one-copy-1 # -> one-copy-1 # >
+one-copy-1 * -> one-shift-* 1 >
+
+
+start 0 -> start n >
+start 1 -> start p >
+start + -> start + >
+start _ -> left _ <
+
+left n -> back0 _ <
+left p -> back1 _ <
+left + -> check _ <
+
+back0 n -> back0 n <
+back0 p -> back0 p <
+back0 + -> add0 + <
+back0 _ -> answer0 _ >
+
+back1 n -> back1 n <
+back1 p -> back1 p <
+back1 + -> add1 + <
+back1 _ -> answer1 _ >
+
+add0 0 -> add0 0 <
+add0 1 -> add0 1 <
+add0 n -> right 0 >
+add0 p -> right 1 >
+add0 _ -> right 0 >
+add0 + -> put0 + >
+add0 $ -> put0 $ >
+
+add1 0 -> add1 0 <
+add1 1 -> add1 1 <
+add1 n -> right 1 >
+add1 p -> neg 0 <
+add1 _ -> right 1 >
+add1 + -> put1 + >
+add1 $ -> put1 $ >
+
+right 0 -> right 0 >
+right 1 -> right 1 >
+right n -> right n >
+right p -> right p >
+right + -> right + >
+right _ -> left _ <
+
+neg n -> right p >
+neg p -> neg n <
+neg _ -> right p >
+neg + -> putp + >
+neg $ -> putp $ >
+
+putp 0 -> shift0 p >
+putp 1 -> shift1 p >
+putp n -> shiftn p >
+putp p -> shiftp p >
+
+put0 0 -> shift0 0 >
+put0 1 -> shift1 0 >
+
+put1 0 -> shift0 1 >
+put1 1 -> shift1 1 >
+
+shift0 0 -> shift0 0 >
+shift0 1 -> shift1 0 >
+shift0 + -> shift+ 0 >
+shift0 n -> shiftn 0 >
+shift0 p -> shiftp 0 >
+shift0 _ -> left 0 ^
+
+shift1 0 -> shift0 1 >
+shift1 1 -> shift1 1 >
+shift1 + -> shift+ 1 >
+shift1 n -> shiftn 1 >
+shift1 p -> shiftp 1 >
+shift1 _ -> left 1 ^
+
+shift+ 0 -> shift0 + >
+shift+ 1 -> shift1 + >
+shift+ + -> shift+ + >
+shift+ n -> shiftn + >
+shift+ p -> shiftp + >
+shift+ _ -> left + ^
+
+shiftn 0 -> shift0 n >
+shiftn 1 -> shift1 n >
+shiftn + -> shift+ n >
+shiftn n -> shiftn n >
+shiftn p -> shiftp n >
+shiftn _ -> left n ^
+
+shiftp 0 -> shift0 p >
+shiftp 1 -> shift1 p >
+shiftp + -> shift+ p >
+shiftp n -> shiftn p >
+shiftp p -> shiftp p >
+shiftp _ -> left p ^
+
+check 0 -> check 0 <
+check 1 -> check 1 <
+check n -> check 0 <
+check p -> check 1 <
+check + -> start + >
+check $ -> end * >
+check _ -> ac _ >
+
+answer0 n -> answer0 0 >
+answer0 p -> answer0 1 >
+answer0 _ -> begin 0 <
+
+answer1 n -> answer1 0 >
+answer1 p -> answer1 1 >
+answer1 _ -> begin 1 <
+
+begin 0 -> begin 0 <
+begin 1 -> begin 1 <
+begin _ -> ac _ >

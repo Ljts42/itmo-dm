@@ -1,0 +1,51 @@
+start: s
+accept: ac
+reject: rj
+blank: _
+
+s 0 -> s 0 >
+s 1 -> s 1 >
+s < -> s < >
+s _ -> left _ <
+
+left 0 -> back0 _ <
+left 1 -> back1 _ <
+left < -> begin _ <
+
+back0 0 -> back0 0 <
+back0 1 -> back0 1 <
+back0 < -> cmp0 < <
+
+back1 0 -> back1 0 <
+back1 1 -> back1 1 <
+back1 < -> cmp1 < <
+
+cmp0 0 -> right = >
+cmp0 1 -> right + >
+cmp0 - -> cmp0 - <
+cmp0 = -> cmp0 = <
+cmp0 + -> cmp0 + <
+cmp0 _ -> ac _ ^
+
+cmp1 0 -> right - >
+cmp1 1 -> right = >
+cmp1 - -> cmp1 - <
+cmp1 = -> cmp1 = <
+cmp1 + -> cmp1 + <
+cmp1 _ -> ac _ ^
+
+right - -> right - >
+right = -> right = >
+right + -> right + >
+right < -> s < >
+
+begin 0 -> rj _ ^
+begin 1 -> rj _ ^
+begin - -> begin - <
+begin = -> begin = <
+begin + -> begin + <
+begin _ -> answer _ >
+
+answer - -> ac _ ^
+answer = -> answer _ >
+answer + -> rj _ ^

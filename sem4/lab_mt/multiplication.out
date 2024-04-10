@@ -1,0 +1,182 @@
+start: s
+accept: ac
+reject: rj
+blank: _
+
+s 0 -> s 0 >
+s 1 -> s 1 >
+s * -> s * >
+s _ -> mul-choose _ <
+
+mul-choose 0 -> nil-left _ <
+mul-choose 1 -> one-left 0 <
+
+nil-left 0 -> nil-left 0 <
+nil-left 1 -> nil-left 1 <
+nil-left * -> nil-shift* 0 >
+
+nil-shift-0 0 -> nil-shift-0 0 >
+nil-shift-0 1 -> nil-shift-1 0 >
+nil-shift-0 _ -> mul-choose 0 ^
+
+nil-shift-1 0 -> nil-shift-0 1 >
+nil-shift-1 1 -> nil-shift-1 1 >
+nil-shift-1 _ -> mul-choose 1 ^
+
+nil-shift* 0 -> nil-shift-0 * >
+nil-shift* 1 -> nil-shift-1 * >
+nil-shift* _ -> nil-clear _ <
+
+nil-clear 0 -> nil-clear _ <
+nil-clear 1 -> nil-clear _ <
+nil-clear + -> left _ <
+nil-clear _ -> ac 0 ^
+
+one-left 0 -> one-left 0 <
+one-left 1 -> one-left 1 <
+one-left * -> one-shift-* # >
+
+one-shift-* 0 -> one-shift-0 * >
+one-shift-* 1 -> one-shift-1 * >
+
+one-shift-0 0 -> one-shift-0 0 >
+one-shift-0 1 -> one-shift-1 0 >
+one-shift-0 _ -> one-back 0 <
+
+one-shift-1 0 -> one-shift-0 1 >
+one-shift-1 1 -> one-shift-1 1 >
+one-shift-1 _ -> one-back 1 <
+
+one-back 0 -> one-back 0 <
+one-back 1 -> one-back 1 <
+one-back # -> one-back # <
+one-back * -> one-back * <
+one-back + -> one-right + >
+one-back n -> one-right n >
+one-back p -> one-right p >
+one-back _ -> one-right _ >
+
+one-right 0 -> one-copy-0 n >
+one-right 1 -> one-copy-1 p >
+one-right # -> s + >
+
+one-copy-0 0 -> one-copy-0 0 >
+one-copy-0 1 -> one-copy-0 1 >
+one-copy-0 # -> one-copy-0 # >
+one-copy-0 * -> one-shift-* 0 >
+
+one-copy-1 0 -> one-copy-1 0 >
+one-copy-1 1 -> one-copy-1 1 >
+one-copy-1 # -> one-copy-1 # >
+one-copy-1 * -> one-shift-* 1 >
+
+
+start 0 -> start n >
+start 1 -> start p >
+start + -> start + >
+start _ -> left _ <
+
+left n -> back0 _ <
+left p -> back1 _ <
+left + -> check _ <
+
+back0 n -> back0 n <
+back0 p -> back0 p <
+back0 + -> add0 + <
+back0 _ -> answer0 _ >
+
+back1 n -> back1 n <
+back1 p -> back1 p <
+back1 + -> add1 + <
+back1 _ -> answer1 _ >
+
+add0 0 -> add0 0 <
+add0 1 -> add0 1 <
+add0 n -> right 0 >
+add0 p -> right 1 >
+add0 _ -> right 0 >
+add0 + -> put0 + >
+
+add1 0 -> add1 0 <
+add1 1 -> add1 1 <
+add1 n -> right 1 >
+add1 p -> neg 0 <
+add1 _ -> right 1 >
+add1 + -> put1 + >
+
+right 0 -> right 0 >
+right 1 -> right 1 >
+right n -> right n >
+right p -> right p >
+right + -> right + >
+right _ -> left _ <
+
+neg n -> right p >
+neg p -> neg n <
+neg _ -> right p >
+neg + -> putp + >
+
+putp 0 -> shift0 p >
+putp 1 -> shift1 p >
+putp n -> shiftn p >
+putp p -> shiftp p >
+
+put0 0 -> shift0 0 >
+put0 1 -> shift1 0 >
+
+put1 0 -> shift0 1 >
+put1 1 -> shift1 1 >
+
+shift0 0 -> shift0 0 >
+shift0 1 -> shift1 0 >
+shift0 + -> shift+ 0 >
+shift0 n -> shiftn 0 >
+shift0 p -> shiftp 0 >
+shift0 _ -> left 0 ^
+
+shift1 0 -> shift0 1 >
+shift1 1 -> shift1 1 >
+shift1 + -> shift+ 1 >
+shift1 n -> shiftn 1 >
+shift1 p -> shiftp 1 >
+shift1 _ -> left 1 ^
+
+shift+ 0 -> shift0 + >
+shift+ 1 -> shift1 + >
+shift+ + -> shift+ + >
+shift+ n -> shiftn + >
+shift+ p -> shiftp + >
+shift+ _ -> left + ^
+
+shiftn 0 -> shift0 n >
+shiftn 1 -> shift1 n >
+shiftn + -> shift+ n >
+shiftn n -> shiftn n >
+shiftn p -> shiftp n >
+shiftn _ -> left n ^
+
+shiftp 0 -> shift0 p >
+shiftp 1 -> shift1 p >
+shiftp + -> shift+ p >
+shiftp n -> shiftn p >
+shiftp p -> shiftp p >
+shiftp _ -> left p ^
+
+check 0 -> check 0 <
+check 1 -> check 1 <
+check n -> check 0 <
+check p -> check 1 <
+check + -> start + >
+check _ -> ac _ >
+
+answer0 n -> answer0 0 >
+answer0 p -> answer0 1 >
+answer0 _ -> begin 0 <
+
+answer1 n -> answer1 0 >
+answer1 p -> answer1 1 >
+answer1 _ -> begin 1 <
+
+begin 0 -> begin 0 <
+begin 1 -> begin 1 <
+begin _ -> ac _ >

@@ -1,0 +1,125 @@
+2
+
+S 0 _ -> S 0 > _ ^
+S 1 _ -> S 1 > _ ^
+S | _ -> S $ > _ ^
+S _ _ -> begin _ < _ ^
+
+begin 0 _ -> begin 0 < _ ^
+begin 1 _ -> begin 1 < _ ^
+begin $ _ -> begin $ < _ ^
+begin _ _ -> move_to_second _ > _ ^
+
+move_to_second 0 _ -> move_to_second _ > 0 >
+move_to_second 1 _ -> move_to_second _ > 1 >
+move_to_second $ _ -> second_to_start _ ^ _ <
+move_to_second | _ -> move_back | < _ <
+move_to_second _ _ -> move_back _ < _ <
+
+second_to_start _ 0 -> second_to_start _ ^ 0 <
+second_to_start _ 1 -> second_to_start _ ^ 1 <
+second_to_start _ _ -> compare _ > _ >
+
+compare 0 0 -> compare 0 > 0 >
+compare 0 1 -> compare_1 0 > 1 >
+compare 1 0 -> compare_2 1 > 0 >
+compare 1 1 -> compare 1 > 1 >
+compare 0 _ -> first_begin 0 < _ ^
+compare 1 _ -> first_begin 1 < _ ^
+compare $ 0 -> second_begin $ ^ 0 <
+compare $ 1 -> second_begin $ ^ 1 <
+compare | 0 -> second_begin | ^ 0 <
+compare | 1 -> second_begin | ^ 1 <
+compare _ 0 -> second_begin _ ^ 0 <
+compare _ 1 -> second_begin _ ^ 1 <
+compare $ _ -> first_begin $ < _ ^
+compare | _ -> first_begin | < _ ^
+compare _ _ -> first_begin _ < _ ^
+
+compare_1 0 0 -> compare_1 0 > 0 >
+compare_1 0 1 -> compare_1 0 > 1 >
+compare_1 1 0 -> compare_1 1 > 0 >
+compare_1 1 1 -> compare_1 1 > 1 >
+compare_1 0 _ -> first_begin 0 < _ ^
+compare_1 1 _ -> first_begin 1 < _ ^
+compare_1 $ 0 -> second_begin $ ^ 0 <
+compare_1 $ 1 -> second_begin $ ^ 1 <
+compare_1 | 0 -> second_begin | ^ 0 <
+compare_1 | 1 -> second_begin | ^ 1 <
+compare_1 _ 0 -> second_begin _ ^ 0 <
+compare_1 _ 1 -> second_begin _ ^ 1 <
+compare_1 $ _ -> second_begin $ ^ _ <
+compare_1 | _ -> second_begin | ^ _ <
+compare_1 _ _ -> second_begin _ ^ _ <
+
+compare_2 0 0 -> compare_2 0 > 0 >
+compare_2 0 1 -> compare_2 0 > 1 >
+compare_2 1 0 -> compare_2 1 > 0 >
+compare_2 1 1 -> compare_2 1 > 1 >
+compare_2 0 _ -> first_begin 0 < _ ^
+compare_2 1 _ -> first_begin 1 < _ ^
+compare_2 $ 0 -> second_begin $ ^ 0 <
+compare_2 $ 1 -> second_begin $ ^ 1 <
+compare_2 | 0 -> second_begin | ^ 0 <
+compare_2 | 1 -> second_begin | ^ 1 <
+compare_2 _ 0 -> second_begin _ ^ 0 <
+compare_2 _ 1 -> second_begin _ ^ 1 <
+compare_2 $ _ -> first_begin $ < _ ^
+compare_2 | _ -> first_begin | < _ ^
+compare_2 _ _ -> first_begin _ < _ ^
+
+first_begin 0 _ -> first_begin 0 < _ ^
+first_begin 1 _ -> first_begin 1 < _ ^
+first_begin _ _ -> write_$ 1 ^ _ ^
+
+second_begin $ 0 -> second_begin $ ^ 0 <
+second_begin $ 1 -> second_begin $ ^ 1 <
+second_begin | 0 -> second_begin | ^ 0 <
+second_begin | 1 -> second_begin | ^ 1 <
+second_begin _ 0 -> second_begin _ ^ 0 <
+second_begin _ 1 -> second_begin _ ^ 1 <
+second_begin $ _ -> write_$ $ ^ _ ^
+second_begin | _ -> write_$ | ^ _ ^
+second_begin _ _ -> write_$ _ ^ _ ^
+
+write_$ 1 _ -> write_right _ > $ >
+write_$ $ _ -> write_left $ < $ <
+write_$ | _ -> write_left | < $ <
+write_$ _ _ -> write_left _ < $ <
+
+write_left 0 _ -> write_left 0 < 0 <
+write_left 1 _ -> write_left 0 < 1 <
+write_left _ _ -> second_end _ ^ _ >
+
+second_end _ 0 -> second_end _ ^ 0 >
+second_end _ 1 -> second_end _ ^ 1 >
+second_end _ $ -> second_end _ ^ $ >
+second_end _ _ -> first_end _ > _ ^
+
+first_end 0 _ -> first_end _ > _ ^
+first_end $ _ -> move_back $ < _ <
+first_end | _ -> move_back | < _ <
+first_end _ _ -> move_back _ < _ <
+
+write_right 0 _ -> write_right _ > 0 >
+write_right 1 _ -> write_right _ > 1 >
+write_right $ _ -> move_back $ < _ <
+write_right | _ -> move_back | < _ <
+write_right _ _ -> move_back _ < _ <
+
+move_back _ 0 -> move_back 0 < _ <
+move_back _ 1 -> move_back 1 < _ <
+move_back _ $ -> move_back $ < _ <
+move_back $ _ -> next $ > _ ^
+move_back _ _ -> next _ > _ ^
+
+next 0 _ -> next 0 > _ ^
+next 1 _ -> next 1 > _ ^
+next $ _ -> move_to_second $ > _ ^
+next | _ -> change | < _ ^
+next _ _ -> change _ < _ ^
+
+change 0 _ -> change 0 < _ ^
+change 1 _ -> change 1 < _ ^
+change $ _ -> begin | < _ ^
+change _ _ -> AC _ > _ ^

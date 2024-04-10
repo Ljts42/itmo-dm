@@ -1,0 +1,22 @@
+start: s
+accept: ac
+reject: rj
+blank: _
+
+s 0 -> s n >
+s 1 -> s p >
+s _ -> left _ <
+
+left 0 -> left 0 <
+left 1 -> left 1 <
+left n -> zero 0 >
+left p -> one 1 >
+left _ -> ac _ >
+
+zero 0 -> zero 0 >
+zero 1 -> zero 1 >
+zero _ -> left 0 <
+
+one 0 -> one 0 >
+one 1 -> one 1 >
+one _ -> left 1 <
